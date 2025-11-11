@@ -39,6 +39,9 @@ app.post('/process-payment', async (req, res) => {
     params.append('type', 'sale');
     params.append('payment_token', token);
     params.append('amount', Number(amount).toFixed(2));
+
+    // ✅ Add this line to enable customer email receipts
+    params.append('sendToCustomer', 'true');
     if (body.invoice) params.append('orderid', body.invoice);
     if (body.fname) params.append('first_name', body.fname);
     if (body.lname) params.append('last_name', body.lname);
@@ -75,3 +78,4 @@ app.post('/process-payment', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>console.log('Server listening on', PORT));
+
